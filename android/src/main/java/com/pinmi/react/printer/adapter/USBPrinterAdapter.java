@@ -13,7 +13,6 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 
 import java.nio.charset.Charset;
@@ -61,12 +60,11 @@ public class USBPrinterAdapter {
                         Log.i(LOG_TAG, "success to grant permission for device "+usbDevice.getDeviceId()+", vendor_id: "+ usbDevice.getVendorId()+ " product_id: " + usbDevice.getProductId());
                         mUsbDevice = usbDevice;
                     }else {
-                        Toast.makeText(context, "用户拒绝获取USB设备权限" + usbDevice.getDeviceName(), Toast.LENGTH_LONG).show();
+                        Log.i(LOG_TAG, "failed to grant permission for device "+usbDevice.getDeviceId()+", vendor_id: "+ usbDevice.getVendorId()+ " product_id: " + usbDevice.getProductId());
                     }
                 }
             } else if(UsbManager.ACTION_USB_DEVICE_DETACHED.equals(action)){
                 if(mUsbDevice != null){
-                    Toast.makeText(context, "USB设备已经被关闭", Toast.LENGTH_LONG).show();
                     closeConnectionIfExists();
                 }
             }
@@ -76,10 +74,14 @@ public class USBPrinterAdapter {
     public void init(Context reactContext) {
         this.mContext = reactContext;
         this.mUSBManager = (UsbManager) this.mContext.getSystemService(Context.USB_SERVICE);
-        this.mPermissionIndent = PendingIntent.getBroadcast(mContext, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        this.mPermissionIndent = PendingIntent.getBroadcast(mContext, 0, new Intent(ACTION_USB_PERMISSION), android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S ? PendingIntent.FLAG_IMMUTABLE : 0);
         IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
-        mContext.registerReceiver(mUsbDeviceReceiver, filter);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            mContext.registerReceiver(mUsbDeviceReceiver, filter, mContext.RECEIVER_EXPORTED);
+        } else {
+            mContext.registerReceiver(mUsbDeviceReceiver, filter);
+        }
         Log.v(LOG_TAG, "RNUSBPrinter initialized");
     }
 
@@ -96,7 +98,6 @@ public class USBPrinterAdapter {
 
     public List<UsbDevice> getDeviceList() {
         if (mUSBManager == null) {
-            Toast.makeText(mContext, "USBManager is not initialized while get device list", Toast.LENGTH_LONG).show();
             return Collections.emptyList();
         }
         return new ArrayList<UsbDevice>(mUSBManager.getDeviceList().values());
@@ -122,7 +123,7 @@ public class USBPrinterAdapter {
 
     private boolean openConnection() {
         if(mUsbDevice == null){
-            Log.e(LOG_TAG, "USB Deivce is not initialized");
+            Log.e(LOG_TAG, "USB Device is not initialized");
             return false;
         }
         if(mUSBManager == null) {
@@ -145,7 +146,6 @@ public class USBPrinterAdapter {
                         Log.e(LOG_TAG, "failed to open USB Connection");
                         return false;
                     }
-                    Toast.makeText(mContext, "Device connected", Toast.LENGTH_SHORT).show();
                     if (usbDeviceConnection.claimInterface(usbInterface, true)){
                         mEndPoint = ep;
                         mUsbInterface = usbInterface;

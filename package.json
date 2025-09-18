@@ -21,17 +21,16 @@
   ],
   "_spec": "react-native-usb-printer",
   "author": {
-    "name": "bondwp322"
+    "name": "redloro"
   },
   "bundleDependencies": false,
   "dependencies": {
-    "buffer": "^5.0.7",
-    "escpos-printer-toolkit": "^1.0.8"
+    "buffer": "^5.0.7"
   },
   "deprecated": false,
   "description": "a usb thermal printer library for android ",
   "devDependencies": {},
-  "homepage": "https://github.com/bondwp/react-native-usb-printer.git",
+  "homepage": "https://github.com/redloro/react-native-usb-printer",
   "keywords": [
     "react-native",
     "printer",
@@ -44,7 +43,7 @@
   "name": "react-native-usb-printer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bondwp/react-native-usb-printer.git"
+    "url": "https://github.com/redloro/react-native-usb-printer"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
