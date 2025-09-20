@@ -1,36 +1,12 @@
 {
-  "_from": "react-native-usb-printer",
-  "_id": "react-native-usb-printer@0.0.4",
-  "_inBundle": false,
-  "_integrity": "sha512-ddsDSxSjjXOZ0GMi+KY6qNbaYHhWHbg72IXsS6+27f1cMzvKjz34OyMH6QCFS32bCwfBut6yp/TR/6UOHz1YUA==",
-  "_location": "/react-native-usb-printer",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "react-native-usb-printer",
-    "name": "react-native-usb-printer",
-    "escapedName": "react-native-usb-printer",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_spec": "react-native-usb-printer",
   "author": {
     "name": "redloro"
   },
   "bundleDependencies": false,
-  "dependencies": {
-    "buffer": "^5.0.7"
-  },
   "deprecated": false,
-  "description": "a usb thermal printer library for android ",
+  "description": "usb device library for android",
   "devDependencies": {},
-  "homepage": "https://github.com/redloro/react-native-usb-printer",
+  "homepage": "https://github.com/redloro/react-native-usb-device",
   "keywords": [
     "react-native",
     "printer",
@@ -40,13 +16,13 @@
   ],
   "license": "ISC",
   "main": "index.js",
-  "name": "react-native-usb-printer",
+  "name": "react-native-usb-device",
   "repository": {
     "type": "git",
-    "url": "https://github.com/redloro/react-native-usb-printer"
+    "url": "https://github.com/redloro/react-native-usb-device"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.4"
+  "version": "0.1.0"
 }
