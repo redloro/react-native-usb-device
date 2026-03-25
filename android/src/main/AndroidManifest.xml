@@ -2,4 +2,20 @@
     package="com.darkpos.usbdevice">
     <uses-permission android:name="android.permission.USB_PERMISSION" />
     <uses-feature android:name="android.hardware.usb.host" android:required="true" />
+
+    <application>
+        <activity
+            android:name=".UsbPermissionActivity"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
+    </application>
 </manifest>
